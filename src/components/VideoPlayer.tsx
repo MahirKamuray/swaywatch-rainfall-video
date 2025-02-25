@@ -47,7 +47,7 @@ export const VideoPlayer: React.FC<VideoPlayerProps> = ({ open, onOpenChange }) 
           </button>
           <video
             className="w-auto h-full rounded-lg"
-            src={`mainpage/Videos/${currentVideo}.mp4`}
+            src={`/Mainpage/Videos/${currentVideo}.mp4`}
             controls
             autoPlay
           />

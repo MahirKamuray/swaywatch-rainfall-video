@@ -36,7 +36,7 @@ const Index = () => {
     <div
       className="min-h-screen w-full relative overflow-hidden bg-cover bg-center"
       style={{
-        backgroundImage: "url(mainpage/BackGround/background.jpeg)",
+        backgroundImage: "url(/Mainpage/BackGround/background.jpeg)",
       }}
     >
       <div className="absolute inset-0 bg-black/20" />
@@ -44,8 +44,8 @@ const Index = () => {
       {fallingImages.map((id) => {
         const isHeart = Math.random() > 0.7;
         const imageSrc = isHeart
-          ? "mainpage/Others/kalp.png"
-          : `mainpage/Others/${Math.floor(Math.random() * 10) + 1}.jpeg`;
+          ? "/Mainpage/Others/kalp.png"
+          : `/Mainpage/Others/${Math.floor(Math.random() * 10) + 1}.jpeg`;
 
         return (
           <FallingImage
