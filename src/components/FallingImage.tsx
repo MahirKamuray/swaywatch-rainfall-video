@@ -14,44 +14,43 @@ export const FallingImage: React.FC<FallingImageProps> = ({
   windDirection,
 }) => {
   const [startX] = useState(() => Math.random() * window.innerWidth);
-  const size = isHeart ? "w-4 h-4" : "w-12 h-12"; // Görsel boyutlarını artıralım
+  const size = isHeart ? "w-2 h-2" : "w-4 h-4";
 
   const getPath = () => {
     const baseY = window.innerHeight + 100;
     const windForce = windDirection ? (windDirection === "left" ? -200 : 200) : 0;
-    
-    // Daha belirgin bir düşme hareketi için yolu güncelleyelim
-    const path = [
-      [startX, -100], // Başlangıç noktası
-      [startX + (Math.random() * 200 - 100), baseY * 0.3], // İlk kontrol noktası
-      [startX + (Math.random() * 200 - 100) + windForce, baseY * 0.6], // İkinci kontrol noktası
-      [startX + windForce * 1.5, baseY] // Bitiş noktası
+    return [
+      [startX, -100],
+      [startX + (Math.random() > 0.5 ? 50 : -50), baseY * 0.25],
+      [startX + (Math.random() > 0.5 ? 50 : -50) + windForce, baseY * 0.75],
+      [startX + windForce, baseY],
     ];
-    
-    return path;
   };
 
   return (
     <motion.img
       src={src}
-      className={`absolute ${size} object-cover rounded-full select-none pointer-events-none`}
-      initial={{ opacity: 0, scale: 0.5 }}
-      animate={{
-        opacity: 1,
-        scale: 1,
-        offsetDistance: "100%",
+      className={`absolute ${size} object-cover rounded-full ${
+        !isHeart && "animate-glow"
+      }`}
+      initial={{ 
+        opacity: 0,
+        y: -100,
+        x: startX 
       }}
-      style={{
-        offsetPath: `path("M ${getPath()
-          .map((point) => point.join(" "))
-          .join(" L ")}")`,
+      animate={{
+        opacity: [0, 1, 1, 0],
+        y: [0, window.innerHeight],
+        x: [
+          startX,
+          startX + (windDirection === "left" ? -100 : windDirection === "right" ? 100 : 0)
+        ]
       }}
       transition={{
-        duration: 8, // Düşme süresini artıralım
+        duration: 5,
         ease: "linear",
-        offsetDistance: {
-          duration: 8,
-          ease: "linear"
+        opacity: {
+          times: [0, 0.1, 0.9, 1]
         }
       }}
     />
