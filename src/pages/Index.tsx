@@ -13,7 +13,7 @@ const Index = () => {
   useEffect(() => {
     const spawnInterval = setInterval(() => {
       setFallingImages((prev) => [...prev, Date.now()]);
-    }, 500);
+    }, 1000); // Düşme aralığını artıralım
 
     const windInterval = setInterval(() => {
       const newDirection = Math.random() > 0.5 ? "left" : "right";
@@ -22,7 +22,7 @@ const Index = () => {
     }, Math.random() * 10000 + 5000);
 
     const cleanup = setInterval(() => {
-      setFallingImages((prev) => prev.slice(-20));
+      setFallingImages((prev) => prev.slice(-15)); // Ekrandaki maksimum görsel sayısını azaltalım
     }, 5000);
 
     return () => {
